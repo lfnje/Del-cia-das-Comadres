@@ -44,23 +44,24 @@
     document.getElementById("pedido-form").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const nome = document.getElementById("nome").value;
-      const itens = document.getElementById("itens").value;
-      const retirada = document.getElementById("retirada").value;
+      const nome = document.getElementById("nome").value.trim();
+      const itens = document.getElementById("itens").value.trim();
+      const retirada = document.getElementById("retirada").value.trim();
 
       if (!nome || !itens || !retirada) {
         alert("Por favor, preencha todos os campos.");
         return;
       }
 
-      // Número do WhatsApp da loja com DDI e DDD 
-      const numeroWhatsApp = "5571982344467"; // 
+      // Número do WhatsApp da loja com DDI e DDD
+      const numeroWhatsApp = "5571982344467";
 
-      // Monta a mensagem formatada
-      const mensagem = `*Pedido - Delícias das Comadres*%0A` +
-                       `*Nome:* ${encodeURIComponent(nome)}%0A` +
-                       `*Itens:*%0A${encodeURIComponent(itens)}%0A` +
-                       `*Forma de Retirada:* ${encodeURIComponent(retirada)}`;
+      // Monta a mensagem formatada com emojis e quebras de linha
+      const mensagem =
+        `*📦 Pedido - Delícias das Comadres*%0A%0A` +
+        `👤 *Nome:* ${encodeURIComponent(nome)}%0A%0A` +
+        `📝 *Itens do Pedido:*%0A${encodeURIComponent(itens)}%0A%0A` +
+        `🚚 *Forma de Retirada:* ${encodeURIComponent(retirada)}`;
 
       // Cria o link do WhatsApp
       const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
@@ -71,3 +72,4 @@
   </script>
 </body>
 </html>
+

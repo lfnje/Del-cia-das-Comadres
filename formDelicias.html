@@ -41,21 +41,32 @@
       }
     });
 
-    document.getElementById("pedido-form").addEventListener("submit", async function (e) {
+    document.getElementById("pedido-form").addEventListener("submit", function (e) {
       e.preventDefault();
 
       const nome = document.getElementById("nome").value;
       const itens = document.getElementById("itens").value;
       const retirada = document.getElementById("retirada").value;
 
-      const response = await fetch("http://localhost:3000/enviar-pedido", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, itens, retirada }),
-      });
+      if (!nome || !itens || !retirada) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
 
-      const data = await response.json();
-      window.location.href = data.whatsappUrl;
+      // Número do WhatsApp da loja com DDI e DDD (ex: 5511999999999)
+      const numeroWhatsApp = "5511999999999"; // <-- Altere aqui para o número real
+
+      // Monta a mensagem formatada
+      const mensagem = `*Pedido - Delícias das Comadres*%0A` +
+                       `*Nome:* ${encodeURIComponent(nome)}%0A` +
+                       `*Itens:*%0A${encodeURIComponent(itens)}%0A` +
+                       `*Forma de Retirada:* ${encodeURIComponent(retirada)}`;
+
+      // Cria o link do WhatsApp
+      const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;
+
+      // Abre o link em nova aba
+      window.open(url, "_blank");
     });
   </script>
 </body>

@@ -39,7 +39,7 @@ Busquei simular a criação de um site institucional real, atendendo a necessida
 ## 🔗 Acesse o Site
 
 O site está publicado e disponível online:  
-**[https://lfnje.github.io/Del-cia-das-Comadres/](https://lfnje.github.io/Del-cia-das-Comadres/)**
+**[Delícias das Comadres](https://lfnje.github.io/Del-cia-das-Comadres/)**
 
 ---
 

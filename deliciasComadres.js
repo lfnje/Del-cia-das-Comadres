@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
@@ -9,10 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve arquivos estáticos da pasta 'public'
+// Servir arquivos estáticos da pasta 'public'
 app.use(express.static(path.join(__dirname, "public")));
 
-// Rota da API
+// Rota: Enviar pedido via WhatsApp
 app.post("/enviar-pedido", (req, res) => {
   const { nome, itens, retirada } = req.body;
 
@@ -26,9 +27,32 @@ app.post("/enviar-pedido", (req, res) => {
 
   const mensagem = `Olá, meu nome é ${nome} e gostaria de confirmar o pedido:\n${listaItens}\nCom - ${retirada}`;
   const numeroWhatsApp = process.env.NUMERO_WHATSAPP;
-  const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
 
+  if (!numeroWhatsApp) {
+    return res.status(500).json({ error: "Número do WhatsApp não configurado." });
+  }
+
+  const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
   res.json({ whatsappUrl: url });
+});
+
+// Rota: Servir produtos a partir de produtos.json
+app.get("/produtos", (req, res) => {
+  const filePath = path.join(__dirname, "public", "produtos.json");
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      console.error("Erro ao ler produtos.json:", err);
+      return res.status(500).json({ error: "Erro ao carregar os produtos." });
+    }
+    try {
+      const produtos = JSON.parse(data);
+      res.json(produtos);
+    } catch (parseError) {
+      console.error("Erro ao fazer parse do JSON:", parseError);
+      res.status(500).json({ error: "Erro ao interpretar os dados dos produtos." });
+    }
+  });
 });
 
 // Porta dinâmica para Render

@@ -50,3 +50,8 @@ Desenvolvido com excelência por **Luiz Filipe Nogueira**
 * **Email:** [lfnjecorporativo@gmail.com](mailto:lfnjecorporativo@gmail.com)
 
 ---
+
+<p align="center">
+  <em>“A tecnologia não só resolve problemas, como também cria oportunidades.”</em><br>
+  <strong>Luiz Filipe Nogueira</strong>
+</p>

@@ -58,10 +58,10 @@
 
       // Monta a mensagem formatada com emojis e quebras de linha
       const mensagem =
-        `*📦 Pedido - Delícias das Comadres*%0A%0A` +
-        `👤 *Nome:* ${encodeURIComponent(nome)}%0A%0A` +
-        `📝 *Itens do Pedido:*%0A${encodeURIComponent(itens)}%0A%0A` +
-        `🚚 *Forma de Retirada:* ${encodeURIComponent(retirada)}`;
+        `*Pedido - Delícias das Comadres*%0A%0A` +
+        `*Nome:* ${encodeURIComponent(nome)}%0A%0A` +
+        `*Itens do Pedido:*%0A${encodeURIComponent(itens)}%0A%0A` +
+        `*Forma de Retirada:* ${encodeURIComponent(retirada)}`;
 
       // Cria o link do WhatsApp
       const url = `https://wa.me/${numeroWhatsApp}?text=${mensagem}`;

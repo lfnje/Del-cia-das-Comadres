@@ -1,7 +1,7 @@
 {
   "name": "delicias-das-compras",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "deliciasComadres.js",
   "scripts": {
     "start": "node server.js"
   },

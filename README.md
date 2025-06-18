@@ -4,8 +4,7 @@
 
 ## 🎯 Sobre o Projeto
 
-Este é o site institucional da empresa **Delícias das Comadres**, um pequeno negócio dedicado à produção e venda de doces caseiros, bolos e sobremesas regionais.  
-O site foi desenvolvido por **Luiz Filipe Nogueira** com o objetivo de apresentar os produtos de forma clara, convidativa e responsiva valorizando a identidade visual da marca e proporcionando uma experiência agradável para o cliente final.
+Este é o site institucional da empresa **Delícias das Comadres**, um pequeno negócio dedicado à produção e venda de doces caseiros, bolos e sobremesas regionais. O site foi desenvolvido por **Luiz Filipe Nogueira** com o objetivo de apresentar os produtos de forma clara, convidativa e responsiva valorizando a identidade visual da marca e proporcionando uma experiência agradável para o cliente final.
 
 ---
 

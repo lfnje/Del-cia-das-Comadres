@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delícias das Comadres - Loja Online</title>
+  <link rel="stylesheet" href="deliciasStyle.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Delícias das Comadres</h1>
+    <button id="toggle-cart">🛒 Carrinho (<span id="cart-count">0</span>)</button>
+  </header>
+
+  <div id="carrinho" class="hidden">
+    <h2>Carrinho</h2>
+    <div id="cart-scroll-area">
+      <ul id="cart-items">
+        <!-- Os itens do carrinho (li) serão inseridos aqui dinamicamente -->
+        <!-- EXEMPLO DE ITEM: -->
+        <!-- <li><span class="item-name">Bolo de Cenoura</span> <span class="item-qty">4</span></li> -->
+      </ul>
+    </div>
+    <p id="total">Total: R$ 0,00</p>
+    <button id="seguir-btn" class="seguir-btn" onclick="irParaFormulario()">Seguir para Informações</button>
+  </div>
+
+  <main>
+    <section class="promocao-carrossel">
+      <div class="promo-container">
+      <div class="promo-item ativo">
+        <h2>Promoção Especial da Semana!</h2>
+        <img src="img/mousse-maracuja.jpg" alt="Imagem da Promoção">
+        <p>Na compra de 2 bolos, ganhe 1 brigadeiro gourmet totalmente grátis!</p>
+        <button class="botao-promocao" onclick="scrollParaCatalogo()">Ir para Catálogo</button>
+       </div>
+
+      <div class="promo-item">
+        <h2>Promocao de Cupcakes!</h2>
+        <img src="img/pudim.jpg" alt="Pudim de Leite">
+        <p>Leve 6 cupcakes por apenas R$ 19,99! Ideal para festas e eventos</p>
+        <button class="botao-promocao" onclick="scrollParaCatalogo()">Ir para Catálogo</button>
+      </div>
+      </div>
+      <button class="seta esquerda" onclick="mudarSlide(-1)">&#10094;</button>
+      <button class="seta direita" onclick="mudarSlide(1)">&#10095;</button>
+    </section>
+
+    <section id="catalogo" class="catalogo">
+      <h2>Catálogo</h2>
+    </section>
+
+    <section id="produtos" class="grid-produtos">
+      <!-- Produtos serão carregados aqui via JavaScript -->
+    </section>
+
+    <section class="sobre-nos section-box">
+      <h2>Sobre Nós</h2>
+      <p>
+        Somos apaixonadas por criar delícias artesanais que encantam paladares e aquecem corações. 
+        A Delícias das Comadres nasceu da amizade e amor pela confeitaria. 
+        Nosso compromisso é com o sabor, a qualidade e o carinho em cada receita.
+      </p>
+    </section>
+
+    <section class="nossa-equipe section-box">
+      <h2>Quem Faz</h2>
+      <div class="equipe-container">
+        <div class="membro">
+          <img src="img/comadre1.jpg" alt="Comadre 1">
+          <h3>Comadre Letícia</h3>
+          <p>Descrição</p>
+        </div>
+        <div class="membro">
+          <img src="img/comadre2.jpg" alt="Comadre 2">
+          <h3>Comadre Cleidjane</h3>
+          <p>Descrição</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="localizacao" class="section-box">
+      <h2>Onde nos localizamos?</h2>
+      <!-- Google Maps --> 
+      <p>Rua Exemplo, 123 - Bairro Central, Cidade XYZ, Estado ABC</p>
+      <p>CEP: 12345-678</p>
+    </section>
+
+    <section class="horario-funcionamento section-box">
+      <h2>Horário de Funcionamento</h2>
+      <ul>
+        <li>Segunda a Sexta: 08h às 18h</li>
+        <li>Sábado: 09h às 14h</li>
+      </ul>
+    </section>
+
+    <section class="formas-pagamento section-box">
+      <h2>Formas de Pagamento</h2>
+      <p>Aceitamos:</p>
+      <ul>
+        <li>Dinheiro</li>
+        <li>Cartão de Crédito/Débito</li>
+        <li>Pix</li>
+      </ul>
+    </section>
+
+    <section class="faq section-box">
+      <h2>Perguntas Frequentes</h2>
+      <details>
+        <summary>Como faço meu pedido?</summary>
+        <p>Você pode fazer seu pedido diretamente pelo nosso site ou entrando em contato pelo WhatsApp.</p>
+      </details>
+      <details>
+        <summary>Vocês fazem entregas?</summary>
+        <p>Sim, entregamos em diversos bairros da região. Consulte pelo carrinho</p>
+      </details>
+      <details>
+        <summary>Qual o prazo de produção?</summary>
+        <p>Pedidos simples saem no mesmo dia. Personalizados exigem 1 a 2 úteis.</p>
+      </details>
+    </section>
+
+    <section class="contato section-box">
+      <h2>Fale Conosco</h2>
+      <div class="contato-links">
+          <a href="https://w.app/deliciasdascomadres" target="_blank" aria-label="WhatsApp">
+          <img src="img/whatsapp.svg" alt="WhatsApp" class="icon-footer" />
+          </a>
+          <a href="https://www.instagram.com/delicias.dascomadres" target="_blank" aria-label="Instagram">
+          <img src="img/instagram.svg" alt="Instagram" class="icon-footer" />
+          </a>
+          <a href="mailto:contato@deliciasdascomadres.com" target="_blank" aria-label="E-mail">
+          <img src="img/email.svg" alt="E-mail" class="icon-footer" />
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <aside id="carrinho" class="hidden">
+    <h2>Carrinho</h2>
+    <ul id="cart-items"></ul>
+    <p>Total: <strong>R$ <span id="total">0.00</span></strong></p> 
+  </aside>
+
+  <footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Delícias das Comadres — Todos os direitos reservados.</p>
+    </div> 
+    <p>Desenvolvido com excelência por <a href="https://github.com/lfnje" alt="Luiz Filipe Nogueira">Luiz Filipe Nogueira - Developer</a></p>
+  </footer>
+  <script src="deliciasResponsive.js"></script>
+
+  <script>
+    let indexAtual = 0;
+    const slides = document.querySelectorAll('.promo-item');
+
+    function mudarSlide(direcao) {
+      slides[indexAtual].classList.remove('ativo');
+
+      indexAtual = (indexAtual + direcao + slides.length) % slides.length;
+
+      slides[indexAtual].classList.add('ativo');
+    }
+    // Troca automática a cada 5 segundos
+    setInterval(() => {
+      mudarSlide(1);
+    }, 5000);
+  </script>
+
+  <script>
+    function scrollParaCatalogo() {
+      const secao = document.getElementById("catalogo");
+      if (secao) {
+        secao.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  </script>
+
+  <script>
+    const toggleCart = document.getElementById('toggle-cart');
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+      const headerBottom = header.offsetTop + header.offsetHeight;
+      if (window.scrollY > headerBottom) {
+        toggleCart.classList.add('fixo');
+      } else {
+        toggleCart.classList.remove('fixo');
+      }
+    });
+  </script>
+
+  <script>
+    function irParaFormulario() {
+      const itens = [];
+      const elementos = document.querySelectorAll('#cart-items li');
+
+      elementos.forEach(el => {
+        // Pegue só o nome do produto e a quantidade separadamente
+        const nome = el.querySelector('.item-name').textContent.replace('– x', '').trim();
+        const quantidade = el.querySelector('.item-qty').textContent.trim();
+
+        itens.push(`${nome} (${quantidade})`);
+      });
+
+      localStorage.setItem("carrinho", JSON.stringify(itens));
+
+      window.location.href = "formDelicias.html";
+    }
+  </script>
+</body>
+</html>

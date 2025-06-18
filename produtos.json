@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "nome": "Bolo de Cenoura",
+    "preco": 30.00,
+    "imagem": "img/bolo-cenoura.jpg"
+
+  },
+  {
+    "id": 2,
+    "nome": "Brownie Recheado",
+    "preco": 2.50,
+    "imagem": "img/brownie.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "Bolo de Queijo",
+    "preco": 25.00,
+    "imagem": "img/cheesecake.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Brownie Recheado",
+    "preco": 5.00,
+    "imagem": "img/brownie.jpg"
+  },
+  {
+    "id": 5,
+    "nome": "Mousse de Maracujá",
+    "preco": 4.00,
+    "imagem": "img/mousse-maracuja.jpg"
+  },
+  {
+    "id": 6,
+    "nome": "Cheesecake",
+    "preco": 28.00,
+    "imagem": "img/cheesecake.jpg"
+  },
+  {
+    "id": 7,
+    "nome": "Pudim de Leite",
+    "preco": 22.00,
+    "imagem": "img/pudim.jpg"
+  },
+  {
+    "id": 8,
+    "nome": "Pudim de Leite",
+    "preco": 15.00,
+    "imagem": "img/pudim.jpg"
+  },
+  {
+    "id": 9,
+    "nome": "Mousse de Maracujá",
+    "preco": 12.00,
+    "imagem": "img/mousse-maracuja.jpg"
+  },
+  {
+    "id": 10,
+    "nome": "Bolo de Cenoura",
+    "preco": 26.00,
+    "imagem": "img/bolo-cenoura.jpg"
+  }
+]

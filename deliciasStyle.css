@@ -1,0 +1,851 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #FCE4EC;
+  /* Rosa muito claro / Fundo suave */
+  color: #5D4037;
+  /* Marrom escuro para texto principal */
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #A0D2EB;
+  /* Azul céu claro (MAIS CLARO) */
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: #1F3A59;
+  /* Azul escuro para contraste com header claro */
+}
+
+/* Cores base para o botão do carrinho (tanto no header quanto quando fixo) */
+#toggle-cart {
+  background-color: #64B5F6;
+  /* Azul claro para o botão do carrinho */
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+  color: white;
+  /* Texto branco para contraste */
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+#toggle-cart:hover {
+  background-color: #42A5F5;
+  /* Azul um pouco mais escuro no hover */
+  color: white;
+  box-shadow: 0 4px 8px rgba(66, 165, 245, 0.2);
+  /* Sombra sutil ao hover */
+}
+
+/* Quando o botão do carrinho está fixo (saiu do header) */
+#toggle-cart.fixo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #2196F3;
+  /* Azul médio para o botão fixo */
+  color: white;
+  /* Texto branco */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  /* Sombra mais pronunciada para destaque */
+}
+
+#toggle-cart.fixo:hover {
+  background-color: #1976D2;
+  /* Azul mais escuro no hover do botão fixo */
+  color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.grid-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Aumentado min-width */
+  gap: 2rem; /* Aumentado o espaçamento entre os cards */
+  padding: 1rem; /* Adicionado padding para afastar da borda da seção */
+}
+
+.produto {
+  background-color: #FFFFFF; /* Branco puro para o fundo do card, para destaque */
+  border-radius: 16px; /* Borda mais arredondada */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada e suave */
+  padding: 1.5rem; /* Aumentado o padding interno */
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transição mais suave */
+  display: flex; /* Para centralizar o conteúdo verticalmente */
+  flex-direction: column; /* Organizar itens em coluna */
+  justify-content: space-between; /* Espaço entre os elementos */
+  align-items: center; /* Centralizar horizontalmente */
+}
+
+.produto:hover {
+  transform: translateY(-8px); /* Efeito de "levantar" mais notável */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15); /* Sombra mais forte no hover */
+}
+
+.produto img {
+  width: 100%;
+  max-height: 180px; /* Aumentado o tamanho máximo da imagem */
+  object-fit: cover;
+  border-radius: 12px; /* Borda da imagem mais arredondada */
+  margin-bottom: 0.8rem; /* Espaço maior abaixo da imagem */
+  border: 2px solid #F48FB1; /* Adicionado uma borda rosa clara à imagem */
+}
+
+.produto h3 {
+  font-size: 1.3rem; /* Título maior */
+  margin-bottom: 0.5rem;
+  color: #1F3A59; /* Azul escuro, mais forte para títulos de produto */
+  font-weight: 600; /* Um pouco mais encorpado */
+}
+
+.produto p {
+  font-size: 1.1rem; /* Texto maior */
+  color: #795548; /* Marrom médio para descrição */
+  margin-bottom: 1rem; /* Espaço maior abaixo do preço */
+  font-weight: 500; /* Levemente mais encorpado */
+}
+
+.produto button {
+  background-color: #EC407A; /* Rosa vibrante */
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem; /* Aumentado o padding do botão */
+  border-radius: 25px; /* Botão mais arredondado */
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease; /* Transição mais suave */
+  font-weight: bold; /* Texto do botão em negrito */
+  letter-spacing: 0.5px; /* Pequeno espaçamento entre as letras */
+}
+
+.produto button:hover {
+  background-color: #D81B60; /* Rosa mais escuro */
+  transform: scale(1.05); /* Pequeno zoom no botão */
+}
+
+
+/* Carrinho */
+#carrinho {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 300px;
+  background-color: #E3F2FD;
+  /* Azul muito claro (quase branco) */
+  border: 2px solid #90CAF9;
+  /* Azul claro para borda */
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+#carrinho.hidden {
+  display: none;
+}
+
+#carrinho h2 {
+  margin-bottom: 1rem;
+  color: #1E88E5;
+  /* Azul forte para título do carrinho */
+}
+
+#cart-items li {
+  margin-bottom: 0.5rem;
+  list-style: none;
+  color: #5D4037;
+  /* Marrom escuro para texto dos itens */
+}
+
+#cart-items button:not(.cart-btn):not(.trash-btn) {
+  all: unset;
+}
+
+.cart-btn,
+.trash-btn {
+  vertical-align: middle;
+}
+
+#total {
+  display: flex;
+  font-size: 1.2rem;
+  color: #3E2723;
+  /* Marrom bem escuro para o total */
+}
+
+/* Rodapé */
+footer {
+  background-color: #D6EAF8;
+  /* Azul bem claro para fundo do rodapé (MAIS CLARO) */
+  color: #3E5060;
+  /* Azul acinzentado escuro para texto no rodapé */
+  text-align: center;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  border-top: 3px solid #A9CCE3;
+  /* Azul um pouco mais escuro para borda superior (MAIS CLARO) */
+  margin-top: 50px;
+}
+
+footer a {
+  color: #2962FF;
+  /* Azul vibrante para links no rodapé */
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+footer a:hover {
+  color: #1C4DBE;
+  /* Azul mais escuro para hover do link no rodapé */
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+/* Estilo para + e - */
+.cart-btn {
+  background-color: #64B5F6 !important;
+  /* Azul claro (consistente com o botão principal) */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin: 0 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cart-btn:hover {
+  background-color: #42A5F5 !important;
+  /* Azul um pouco mais escuro */
+}
+
+/* Estilo para o botão do lixo */
+.trash-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  padding: 4px;
+}
+
+.icon-trash {
+  width: 20px;
+  height: 20px;
+  color: #EF5350;
+  /* Vermelho suave para o ícone da lixeira */
+  transition: color 0.2s;
+}
+
+.trash-btn:hover .icon-trash {
+  color: #D32F2F;
+  /* Vermelho mais escuro para hover */
+}
+
+/* Alinhamento personalizado dos itens do carrinho */
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #EBF8FF;
+  /* Azul extremamente pálido / quase branco */
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.cart-item .item-name {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #4E342E;
+  /* Marrom bem escuro para nome do item */
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cart-item-controls .item-qty {
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
+  color: #5D4037;
+  /* Marrom escuro */
+}
+
+/* Estilo para SVG */
+.footer-icons {
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-footer {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+  color: #2962FF;
+  /* Cor dos ícones do footer (Azul vibrante, igual aos links) */
+}
+
+.icon-footer:hover {
+  transform: scale(1.2);
+  color: #1C4DBE;
+  /* Hover dos ícones do footer (Azul mais escuro) */
+}
+
+
+/* Estilo para Promoções */
+.promocao {
+  background: linear-gradient(135deg, #F8BBD0, #EC407A);
+  /* Gradiente de Rosa claro para Rosa vibrante */
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 16px;
+  margin: 40px auto;
+  max-width: 900px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.container-promocao h2 {
+  /*Dentro da div .promocao */
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.container-promocao p {
+  /*Dentro da div .promocao */
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.botao-promocao {
+  background-color: #fff;
+  color: #D81B60; /* Rosa escuro para texto do botão */
+  padding: 12px 24px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
+  display: inline-block;
+  border: none; /* Remove borda */
+  outline: none; /* Remove contorno ao focar */
+  box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3); /* Sombra rosa choque */
+}
+
+
+.botao-promocao:hover,
+.botao-promocao:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(255, 105, 180, 0.4);
+}
+
+
+/* Estilo para Catálogo */
+.catalogo {
+  display: flex;
+  flex-direction: column; /* Alinha o h2 e grid-produtos em coluna */
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF7F9; /* Branco com leve tom rosado (consistente com section) */
+  text-align: center;
+  margin: 3rem 1rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais destacada */
+}
+
+.catalogo h2 {
+  font-size: 3.2rem; /* Título um pouco maior */
+  color: #2E86C1; /* Azul médio para o título do catálogo */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px; /* Maior espaçamento entre as letras */
+  position: relative;
+  margin-bottom: 1.5rem; /* Espaço maior abaixo do título */
+  padding-bottom: 0.5rem; /* Para a linha decorativa não colar no texto */
+}
+
+.catalogo h2::after {
+  content: '';
+  width: 60%; /* Linha mais curta para um visual mais clean */
+  height: 5px; /* Linha mais grossa */
+  background: #A0D2EB; /* Azul céu claro (Harmoniza com o header) */
+  display: block;
+  margin: 12px auto 0;
+  border-radius: 4px;
+}
+
+/* Seta animada para navegação entre promoções */
+.seta-baixo {
+  display: inline-block;
+  margin-top: 30px;
+  font-size: 2.5rem;
+  color: #fff;
+  /* Branco sobre o fundo rosa da promoção */
+  animation: pular 1.2s infinite;
+  transition: transform 0.3s, color 0.3s;
+  text-decoration: none;
+}
+
+.seta-baixo:hover {
+  transform: scale(1.2);
+  color: #FCE4EC;
+  /* Rosa muito claro para hover da seta */
+}
+
+@keyframes pular {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Carrossel */
+.promocao-carrossel {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #F48FB1, #E91E63);
+  /* Gradiente de Rosa médio para Rosa intenso */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.promo-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.promo-item {
+  min-width: 100%;
+  padding: 60px 20px;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.6s ease-in-out;
+  pointer-events: none;
+}
+
+.promo-item.ativo {
+  opacity: 1;
+  pointer-events: all;
+  position: relative;
+  /* Para ocupar espaço no container */
+}
+
+.promo-item h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.promo-item p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Setas do Carrossel */
+.seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: #fff;
+  /* Branco */
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s;
+  z-index: 5;
+}
+
+.seta:hover {
+  transform: scale(1.2) translateY(-50%);
+  /* Mantém o translateY original */
+  color: #FFCDD2;
+  /* Rosa bem claro para hover */
+}
+
+.seta.esquerda {
+  left: 10px;
+}
+
+.seta.direita {
+  right: 10px;
+}
+
+/* Scroll Carrinho */
+#cart-scroll-area {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px;
+  /* Para não colar a scrollbar no conteúdo */
+}
+
+#cart-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+#cart-scroll-area::-webkit-scrollbar-thumb {
+  background-color: #64B5F6;
+  /* Azul claro para scrollbar */
+  border-radius: 10px;
+}
+
+#cart-scroll-area::-webkit-scrollbar-track {
+  background: #BBDEFB;
+  /* Azul muito claro para trilha do scrollbar */
+}
+
+/* Estilização Adicionar - Total (dentro do carrinho) */
+#total {
+  background-color: #E3F2FD;
+  /* Azul muito claro (consistente com #carrinho) */
+  color: #1565C0;
+  /* Azul escuro para texto do total */
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 10px;
+  text-align: right;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* === Seções Gerais === */
+section {
+  margin: 3rem 1rem;
+  padding: 2rem;
+  background-color: #FFF7F9;
+  /* Branco com leve tom rosado */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+  /* Títulos gerais de seção, como Sobre Nós, FAQ etc. */
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #0D47A1;
+  /* Azul bem escuro para títulos de seção */
+}
+
+/* === Sobre Nós === */
+.sobre-nos p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #8D6E63;
+  /* Marrom claro para parágrafos */
+}
+
+/* === Horário de Funcionamento === */
+.horario-funcionamento ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+.horario-funcionamento li {
+  margin-bottom: 0.5rem;
+  color: #8D6E63;
+  /* Marrom claro */
+}
+
+/* === Formas de Pagamento === */
+.formas-pagamento ul {
+  list-style: none;
+  padding: 0;
+}
+
+.formas-pagamento li {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: #8D6E63;
+  /* Marrom claro */
+}
+
+/* === FAQ === */
+.faq details {
+  margin-bottom: 1rem;
+  background-color: #fff;
+  border: 1px solid #B3E5FC;
+  /* Azul bem claro para borda do FAQ */
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq summary {
+  font-weight: bold;
+  color: #1976D2;
+  /* Azul médio para summary do FAQ */
+  font-size: 1.1rem;
+}
+
+.faq p {
+  margin-top: 0.5rem;
+  color: #8D6E63;
+  /* Marrom claro */
+}
+
+/* === Contato === */
+.contato p {
+  margin-bottom: 0.7rem;
+  font-size: 1.1rem;
+  color: #8D6E63;
+  /* Marrom claro */
+}
+
+.contato a {
+  color: #1E88E5;
+  /* Azul forte para links de contato */
+  text-decoration: none;
+}
+
+.contato a:hover {
+  text-decoration: underline;
+  color: #1565C0;
+  /* Azul mais escuro para hover */
+}
+
+/* === Nossa Equipe === */
+.nossa-equipe .equipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.nossa-equipe .membro {
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.nossa-equipe img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #FFCCBC;
+  /* Rosa/Pêssego claro para borda da imagem */
+  margin-bottom: 0.5rem;
+}
+
+.nossa-equipe h3 {
+  margin: 0.5rem 0 0.2rem;
+  font-size: 1.2rem;
+  color: #8D6E63;
+  /* Marrom médio para nome do membro */
+}
+
+.nossa-equipe p {
+  color: #8D6E63;
+  /* Marrom claro para cargo/descrição */
+  font-size: 1rem;
+}
+
+/** === Icons de Contato === */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+.contato-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.contato-links a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #1E88E5;
+  /* Azul forte */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.contato-links a:hover {
+  transform: scale(1.05);
+  color: #1565C0;
+  /* Azul mais escuro */
+}
+
+.contato-links img.icon-footer,
+/* Se usar img tags */
+.contato-links .icon-footer {
+  /* Se usar svg ou font icons com a classe */
+  width: 24px;
+  height: 24px;
+  animation: pulse 2s infinite ease-in-out;
+  color: #1E88E5;
+  /* Azul forte para ícones de contato */
+}
+
+.contato-links a:hover img.icon-footer,
+.contato-links a:hover .icon-footer {
+  color: #1565C0;
+  /* Azul mais escuro no hover */
+}
+
+
+/* Estilização para Box Secundário (se houver um uso específico para esta classe) */
+.section-box {
+  background-color: #FFF7F9;
+  /* Branco com leve tom rosado (consistente com section) */
+  border: 2px solid #F48FB1;
+  /* Rosa claro para borda */
+  border-radius: 20px;
+  padding: 30px;
+  margin: 40px 20px;
+  /* Default margin, pode ser sobrescrito por .section */
+  box-shadow: 0 4px 12px rgba(236, 64, 122, 0.15);
+  /* Sombra rosa */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(236, 64, 122, 0.3);
+  /* Sombra rosa mais forte no hover */
+}
+
+.section-box h2 {
+  color: #C2185B;
+  /* Rosa escuro para título do box */
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-box p,
+.section-box li {
+  font-size: 1.1rem;
+  color: #8D6E63;
+  /* Marrom claro para texto */
+  line-height: 1.6;
+  font-family: 'Nunito', sans-serif;
+}
+
+.section-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Estilização para Frases no Box Secundário */
+.section-box p strong {
+  font-weight: 700;
+  color: #1976D2;
+  /* Azul médio para destaque forte */
+}
+
+.section-box span.destaque {
+  color: #D81B60;
+  /* Rosa escuro para destaque */
+  font-weight: 600;
+  background-color: #FCE4EC;
+  /* Fundo rosa bem claro para destaque */
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.section-box em {
+  font-style: italic;
+  color: #547E9C;
+  /* Azul acinzentado para ênfase */
+}
+
+/* Estilização para Mudança de Página / Botão "Seguir" (se aplicável) */
+.seguir-btn {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background-color: #1E88E5;
+  /* Azul forte */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  /* Pode precisar de ajuste dependendo do contexto */
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.seguir-btn:hover {
+  background-color: #1565C0;
+  /* Azul mais escuro */
+}
+
+/* Estilização para valor dentro do Carrinho */
+.item-line {
+  /* Usado para a linha do item no carrinho, nome e preço unitário */
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #4E342E;
+  /* Marrom bem escuro */
+}
+
+.item-price {
+  /* Preço individual do item na lista */
+  color: #4E342E;
+  /* Azul acinzentado/Marrom claro para preço (sutil) */
+  opacity: 0.9;
+  /* levemente mais sutil */
+  font-size: 0.85em;
+}
+
+/* Estilização para o botão Aparecer e não aparecer */
+.seguir-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

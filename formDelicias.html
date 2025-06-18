@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fazer Pedido - Delícias das Comadres</title>
+  <link rel="stylesheet" href="formStyle.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Faça seu Pedido</h2>
+
+    <form id="pedido-form">
+      <!-- Nome -->
+      <label for="nome"><em>Nome do Responsável pelo Pedido:</em></label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="itens"><em>Itens do Pedido:</em></label>
+      <textarea id="itens" name="itens" readonly></textarea>
+
+      <!-- Forma de Retirada -->
+      <label for="retirada"><em>Opções para Retirada:</em></label>
+      <select id="retirada" name="retirada" required>
+        <option value="">Selecione</option>
+        <option value="Buscar no Endereço da Loja">Buscar no Endereço da Loja</option>
+        <option value="Entrega em domicílio (sujeita à cobrança de frete)">Entrega em domicílio (sujeita à cobrança de frete)</option>
+      </select>
+
+      <!-- Botão -->
+      <button type="submit">Enviar para o WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const itens = JSON.parse(localStorage.getItem("carrinho") || "[]");
+
+      if (itens.length > 0) {
+        const textarea = document.getElementById("itens");
+        textarea.value = itens.join("\n"); // Cada item em uma linha
+      }
+    });
+
+    document.getElementById("pedido-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const itens = document.getElementById("itens").value;
+      const retirada = document.getElementById("retirada").value;
+
+      const response = await fetch("http://localhost:3000/enviar-pedido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, itens, retirada }),
+      });
+
+      const data = await response.json();
+      window.location.href = data.whatsappUrl;
+    });
+  </script>
+</body>
+</html>

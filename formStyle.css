@@ -1,0 +1,120 @@
+/* Fundo geral rosado suave */
+body {
+  background-color: #FCE4EC; /* Rosa muito claro / Fundo suave - consistente com o body principal */
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5D4037; /* Marrom escuro para texto principal - consistente com o body principal */
+  line-height: 1.6; /* melhora a legibilidade de textos longos */
+}
+
+/* Container do formulário com azul claro predominante, com detalhes rosa/marrom */
+.form-container {
+  max-width: 480px;
+  margin: 50px auto;
+  padding: 32px 36px;
+  background-color: #E3F2FD; /* Azul muito claro (quase branco) - como o fundo do carrinho */
+  border-radius: 20px; /* bordas arredondadas, mantendo a suavidade */
+  border: 2px solid #90CAF9; /* Azul claro para borda - como o carrinho */
+  box-shadow: 0 8px 22px rgba(144, 202, 249, 0.4); /* Sombra mais azulada, refletindo o fundo */
+  font-family: inherit;
+  color: #3E2723; /* Marrom bem escuro para o texto principal do formulário */
+}
+
+/* Título do formulário - Azul forte */
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 28px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1E88E5; /* Azul forte para título do carrinho - perfeito para o título do formulário */
+  letter-spacing: 1.2px;
+  position: relative; /* Para o detalhe da linha */
+  padding-bottom: 10px; /* Espaço para a linha */
+}
+
+/* Detalhe: linha decorativa abaixo do título, inspirada no catálogo */
+.form-container h2::after {
+  content: '';
+  width: 60%; /* Linha mais curta para um visual clean */
+  height: 4px; /* Linha mais grossa */
+  background: #FFCDD2; /* Rosa bem claro, detalhe sutil */
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 4px;
+}
+
+/* Labels - Marrom médio */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  color: #795548; /* Marrom médio para descrição de produtos - suave e legível */
+}
+
+/* Inputs, select e textarea - Fundo branco com borda marrom suave */
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  border: 2px solid #D7CCC8; /* Marrom muito claro / Bege - para uma borda sutil */
+  border-radius: 14px; /* bordas arredondadas */
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* transições suaves */
+  background-color: #FFFFFF; /* Branco puro, limpo */
+  color: #4E342E; /* Marrom bem escuro para o texto dentro dos campos */
+}
+
+/* Área de texto readonly - Azul muito claro */
+textarea[readonly] {
+  background-color: #EBF8FF; /* Azul extremamente pálido / quase branco - como itens do carrinho */
+  cursor: default; /* indica que não é interativo */
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Foco nos campos - Azul vibrante com sombra azulada */
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+  outline: none; /* remove o contorno padrão do navegador */
+  border-color: #2196F3; /* Azul médio para o botão fixo - excelente para foco */
+  box-shadow: 0 0 12px rgba(33, 150, 243, 0.6); /* Sombra azulada, alinhada com a cor de foco */
+}
+
+/* Botão de submit - Rosa um pouco mais forte, mas ainda suave */
+button[type="submit"] {
+  width: 100%;
+  padding: 16px 0;
+  background-color: #F06292; /* Rosa médio, um pouco mais forte que o anterior */
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; /* transições suaves */
+  letter-spacing: 0.5px; /* Pequeno espaçamento entre as letras - como nos botões de produto */
+}
+
+button[type="submit"]:hover {
+  background-color: #E91E63; /* Rosa intenso, para o hover */
+  box-shadow: 0 6px 18px rgba(233, 30, 99, 0.6); /* sombra com a cor de hover do botão */
+  transform: translateY(-2px); /* efeito de "levantar" no hover */
+}
+
+/* Responsividade simples */
+@media (max-width: 520px) {
+  .form-container {
+    margin: 25px 15px;
+    padding: 24px 20px;
+  }
+
+  .form-container h2 {
+    font-size: 1.6rem;
+  }
+}

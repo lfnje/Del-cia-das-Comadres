@@ -1,13 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-const PORT = 3000;
+// Serve arquivos estáticos da pasta 'public'
+app.use(express.static(path.join(__dirname, "public")));
 
+// Rota da API
 app.post("/enviar-pedido", (req, res) => {
   const { nome, itens, retirada } = req.body;
 
@@ -15,7 +20,6 @@ app.post("/enviar-pedido", (req, res) => {
     return res.status(400).json({ error: "Nome, itens e retirada são obrigatórios." });
   }
 
-  // Se 'itens' for array, junta com quebra de linha
   const listaItens = Array.isArray(itens)
     ? itens.map(item => item.trim()).filter(item => item.length > 0).join("\n")
     : itens.split("\n").map(item => item.trim()).filter(item => item.length > 0).join("\n");
@@ -27,6 +31,9 @@ app.post("/enviar-pedido", (req, res) => {
   res.json({ whatsappUrl: url });
 });
 
+// Porta dinâmica para Render
+const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });

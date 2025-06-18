@@ -12,6 +12,7 @@ Este é o site institucional da empresa **Delícias das Comadres**, um pequeno n
 
 * **HTML5:** Para a estrutura da página e uso de marcação semântica.
 * **CSS3:** Responsável por toda a parte visual e responsiva do layout, adaptando-se a diferentes dispositivos.
+* **JavaScript:** Utilizado para interações e integração do formulário com o WhatsApp.
 * **GitHub Pages:** Plataforma usada para hospedagem gratuita e fácil manutenção.
 
 ---

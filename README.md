@@ -43,7 +43,9 @@ O site está publicado e disponível online:
 
 ---
 
-Desenvolvido com excelência por **Luiz Filipe Nogueira**
+## ✉️ Contato
+
+Se quiser mais informações, discutir possíveis colaborações ou oportunidades profissionais, sinta-se à vontade para me contatar:
 
 * **LinkedIn:** [linkedin.com/in/luizfilipenogueira](https://www.linkedin.com/in/luizfilipenogueira/)
 * **GitHub:** [github.com/lfnje](https://github.com/lfnje)

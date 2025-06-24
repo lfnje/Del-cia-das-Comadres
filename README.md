@@ -36,6 +36,14 @@ Busquei simular a criação de um site institucional real, atendendo a necessida
 
 ---
 
+### Estrutura da Solução
+
+<p align="center">
+    <img src="img/Delicias Estrutura.png" alt="Estrutura de Solução" style="width:75%; max-width:600px;">
+</p>
+
+---
+
 ## 🔗 Acesse o Site
 
 O site está publicado e disponível online:  
